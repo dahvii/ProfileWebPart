@@ -11,6 +11,7 @@ import * as strings from 'ProfileWebPartStrings';
 import Profile from './components/Profile';
 import { IProfileProps } from './components/IProfileProps';
 
+
 export interface IProfileWebPartProps {
   description: string;
 }
