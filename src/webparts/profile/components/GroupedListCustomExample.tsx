@@ -1,0 +1,100 @@
+import * as React from 'react';
+import { GroupedList, IGroup } from 'office-ui-fabric-react/lib/GroupedList';
+import { Link } from 'office-ui-fabric-react/lib/Link';
+import { getTheme, mergeStyleSets, IRawStyle } from 'office-ui-fabric-react/lib/Styling';
+import pnp, { Item } from "sp-pnp-js";
+
+const theme = getTheme();
+const headerAndFooterStyles: IRawStyle = {
+  minWidth: 300,
+  minHeight: 40,
+  lineHeight: 40,
+  paddingLeft: 16
+};
+const classNames = mergeStyleSets({
+  header: [headerAndFooterStyles, theme.fonts.xLarge],
+  footer: [headerAndFooterStyles, theme.fonts.large],
+  name: {
+    display: 'inline-block',
+    overflow: 'hidden',
+    height: 24,
+    cursor: 'default',
+    padding: 8,
+    boxSizing: 'border-box',
+    verticalAlign: 'top',
+    background: 'none',
+    backgroundColor: 'transparent',
+    border: 'none',
+    paddingLeft: 32
+  }
+});
+
+
+export class GroupedListCustomExample extends React.Component {
+  state = {
+    profileText : [],
+    personas : []
+  }
+  
+
+  componentDidMount(){
+    pnp.sp.web.lists.getByTitle("ProfileList").items.get().then((items: any[]) => {
+      let personas = [];
+      let profileText= [];
+      let counter= 0;
+      items.map(item => {
+          let persona = {key: item.Id, name: item.Title, startIndex: counter, count:1, data:{id: item.Id, name: item.Title, profileText: item.ProfileText, image: item.Image, companyPosition: item.CompanyPosition, startDate: item.StartDate }}
+          personas.push(persona);
+          let text= {profileText: item.ProfileText};
+          profileText.push(text)
+          counter++;          
+      })
+      console.log(personas);
+      
+      this.setState({ personas : personas })
+      this.setState({profileText: profileText})
+
+      }, (errorMessage)=> {
+     // Failed
+     console.log(errorMessage);
+    });
+    
+  }
+
+  public render(): JSX.Element {
+    
+    return (
+      <GroupedList
+        items={this.state.profileText}
+        onRenderCell={this._onRenderCell}
+        groupProps={{
+          onRenderHeader: this._onRenderHeader
+        }}
+        groups={this.state.personas}
+      />
+    );
+  }
+
+  private _onRenderCell(nestingDepth: number, item, itemIndex: number): JSX.Element {
+    console.log("onRenderCell",item);
+    
+    return (
+      <div data-selection-index={itemIndex}>
+        <span>{item.profileText}</span>
+      </div>
+    );
+  }
+
+  private _onRenderHeader(props): JSX.Element {    
+    const toggleCollapse = (): void => {
+      props.onToggleCollapse!(props.group!);
+    };
+
+    return (
+      <div className={classNames.header}>
+        {props.group!.name}
+        &nbsp; (<Link onClick={toggleCollapse}>{props.group!.isCollapsed ? 'Expand' : 'Collapse'}</Link>)
+      </div>
+    );
+  }
+}

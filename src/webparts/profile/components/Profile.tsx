@@ -7,6 +7,8 @@ import Person from './Person';
 import { IPersonaProps, IPersonaSharedProps, Persona, PersonaSize, PersonaPresence } from 'office-ui-fabric-react/lib/Persona';
 import { GroupedList, IGroup } from 'office-ui-fabric-react/lib/components/GroupedList/index';
 import { DetailsRow } from 'office-ui-fabric-react/lib/components/DetailsList/DetailsRow';
+import {GroupedListCustomExample} from './GroupedListCustomExample';
+
 
 const groupCount = 3;
 
@@ -20,7 +22,7 @@ export default class Profile extends React.Component<IProfileProps, {}> {
   componentDidMount(){
     pnp.sp.web.lists.getByTitle("ProfileList").items.get().then((items: any[]) => {
       this.setState({ profileListItems : items})
-      console.log(items);
+      //console.log(items);
       }, (errorMessage)=> {
      // Failed
      console.log(errorMessage);
@@ -34,11 +36,8 @@ export default class Profile extends React.Component<IProfileProps, {}> {
       <div className={ styles.profile }>
         <div className={ styles.container }>
           <div className={ styles.row }>
-              <GroupedList
-              items={this.state.profileListItems}
-              onRenderCell={this._onRenderCell}
-            />
-
+             
+          <GroupedListCustomExample/>
           </div>
         </div>
       </div>
@@ -46,7 +45,13 @@ export default class Profile extends React.Component<IProfileProps, {}> {
   }
 
   private _onRenderCell = (nestingDepth, item, itemIndex): JSX.Element => {
-    
+    /*
+från render :
+ <GroupedList
+              items={this.state.profileListItems}
+              onRenderCell={this._onRenderCell}
+            />
+    */
     return (
       <Persona
               text={item.Title}
