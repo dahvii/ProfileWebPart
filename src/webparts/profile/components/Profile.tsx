@@ -5,11 +5,17 @@ import { escape } from '@microsoft/sp-lodash-subset';
 import pnp, { Item } from "sp-pnp-js";
 import Person from './Person';
 import { IPersonaProps, IPersonaSharedProps, Persona, PersonaSize, PersonaPresence } from 'office-ui-fabric-react/lib/Persona';
+import { GroupedList, IGroup } from 'office-ui-fabric-react/lib/components/GroupedList/index';
+import { DetailsRow } from 'office-ui-fabric-react/lib/components/DetailsList/DetailsRow';
+
+const groupCount = 3;
+
 
 export default class Profile extends React.Component<IProfileProps, {}> {
   state = {
     profileListItems: []
   }
+  
 
   componentDidMount(){
     pnp.sp.web.lists.getByTitle("ProfileList").items.get().then((items: any[]) => {
@@ -28,17 +34,28 @@ export default class Profile extends React.Component<IProfileProps, {}> {
       <div className={ styles.profile }>
         <div className={ styles.container }>
           <div className={ styles.row }>
-            {this.state.profileListItems.map(item => {
-              return <Persona
+              <GroupedList
+              items={this.state.profileListItems}
+              onRenderCell={this._onRenderCell}
+            />
+
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  private _onRenderCell = (nestingDepth, item, itemIndex): JSX.Element => {
+    
+    return (
+      <Persona
               text={item.Title}
               secondaryText= {item.CompanyPosition}
               size={PersonaSize.size72}
               imageUrl={item.Image.Url}
             />
-            })}  
-          </div>
-        </div>
-      </div>
+
+
     );
   }
 }
