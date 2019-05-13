@@ -3,6 +3,16 @@ import { GroupedList, IGroup } from 'office-ui-fabric-react/lib/GroupedList';
 import { Link } from 'office-ui-fabric-react/lib/Link';
 import { getTheme, mergeStyleSets, IRawStyle } from 'office-ui-fabric-react/lib/Styling';
 import pnp, { Item } from "sp-pnp-js";
+import { IPersonaProps, IPersonaSharedProps, Persona, PersonaSize, PersonaPresence } from 'office-ui-fabric-react/lib/Persona';
+import { Icon } from 'office-ui-fabric-react/lib/Icon';
+import Moment from 'react-moment';
+import { library } from '@fortawesome/fontawesome-svg-core'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faInfoCircle } from '@fortawesome/free-solid-svg-icons'
+
+library.add(faInfoCircle)
+
+
 
 const theme = getTheme();
 const headerAndFooterStyles: IRawStyle = {
@@ -87,12 +97,30 @@ export class GroupedListCustomExample extends React.Component {
     const toggleCollapse = (): void => {
       props.onToggleCollapse!(props.group!);
     };
-
+    const  _onRenderSecondaryText = (props): JSX.Element => {
+      return (
+        <div>
+          <Icon iconName={'Suitcase'} className={'ms-JobIconExample'} />
+          {props.secondaryText}
+          <br/>
+            Starts at <Moment  format="ddd YY-MM-DD" >{props.optionalText}</Moment>
+          
+        </div>
+      );
+    };
     return (
-      <div className={classNames.header}>
-        {props.group!.name}
-        &nbsp; (<Link onClick={toggleCollapse}>{props.group!.isCollapsed ? 'Expand' : 'Collapse'}</Link>)
-      </div>
+      <div className="listItem">
+         <Persona
+          text={props.group.name}
+          size={PersonaSize.size72}
+          secondaryText= {props.group.data.companyPosition}
+          onRenderSecondaryText={_onRenderSecondaryText}
+          imageUrl={props.group.data.image.Url}
+          optionalText= {props.group.data.startDate}
+
+        />
+        <Link onClick={toggleCollapse}> <FontAwesomeIcon size= "2x" icon="info-circle" />{props.group!.isCollapsed ? 'Show profile text' : 'Hide profile text'}</Link>
+      </div>   
     );
   }
 }
