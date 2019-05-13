@@ -43,7 +43,7 @@ export class GroupedListCustomExample extends React.Component {
       let profileText= [];
       let counter= 0;
       items.map(item => {
-          let persona = {key: item.Id, name: item.Title, startIndex: counter, count:1, data:{id: item.Id, name: item.Title, profileText: item.ProfileText, image: item.Image, companyPosition: item.CompanyPosition, startDate: item.StartDate }}
+          let persona = {key: item.Id, name: item.Title, startIndex: counter, count:1, isCollapsed: true ,data:{id: item.Id, name: item.Title, profileText: item.ProfileText, image: item.Image, companyPosition: item.CompanyPosition, startDate: item.StartDate }}
           personas.push(persona);
           let text= {profileText: item.ProfileText};
           profileText.push(text)
@@ -76,8 +76,6 @@ export class GroupedListCustomExample extends React.Component {
   }
 
   private _onRenderCell(nestingDepth: number, item, itemIndex: number): JSX.Element {
-    console.log("onRenderCell",item);
-    
     return (
       <div data-selection-index={itemIndex}>
         <span>{item.profileText}</span>
