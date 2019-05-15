@@ -1,7 +1,16 @@
-import Person from './Person';
 
-export interface IPersonProps {
-    name: string;
-    text: string;
+  export interface IPersonProps {
+    person: IPerson
+
   }
-  
+
+
+  export interface IPerson {
+    id: number,
+    name: string,
+    startDate: string, 
+    imageUrl: string,
+    companyPosition: string,
+    profileText: string,
+
+  }

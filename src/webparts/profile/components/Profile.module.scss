@@ -10,9 +10,37 @@
   }
 
   .row {
+    background-color: rgba(200, 152, 255, 0.664);
     @include ms-Grid-row;
     @include ms-fontColor-white;
     padding: 20px;
+    
+    margin-right: 0;
+    margin-left: 0;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    box-shadow: 0 10px 20px 0 rgba(62, 0, 65, 0.5), 0 25px 50px 0 rgba(62, 0, 65, 0.5);
+    border-radius: 10px;
+    color: rgb(102, 102, 102);
+    
+  }
+
+  .icon{
+    font-size: 25px;
+    float:right;
+    
+  }
+
+  .persona{
+    flex:4;
+
+  }
+
+
+  .introText {
+    flex:1;
+
   }
 
   .column {
