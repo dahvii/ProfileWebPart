@@ -19,7 +19,7 @@ export default class Profile extends React.Component<IProfileProps, {}> {
           id: item.Id,
           name: item.Title,
           startDate: item.StartDate, 
-          imageUrl: item.Image.Url,
+          imageUrl: (item.Image ? item.Image.Url : null ),
           companyPosition: item.CompanyPosition,
           profileText: item.ProfileText,
         }

@@ -4,21 +4,16 @@ import { IPersonProps } from './IPersonProps';
 import { Persona, PersonaSize } from 'office-ui-fabric-react/lib/Persona';
 import { Icon } from 'office-ui-fabric-react/lib/Icon';
 import Moment from 'react-moment';
-import { library } from '@fortawesome/fontawesome-svg-core'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faInfoCircle } from '@fortawesome/free-solid-svg-icons';
 import { TooltipHost } from 'office-ui-fabric-react/lib/Tooltip';
 import { Link } from 'office-ui-fabric-react/lib/Link';
 
-
-
-
-
-library.add(faInfoCircle)
-
-
 export class Person extends React.Component<IPersonProps> {
-    public render() {  
+
+  state = {
+    isCollapsed: true
+  }
+
+    public render() { 
         const  _onRenderSecondaryText = (props): JSX.Element => {
             return (
               <div>
@@ -29,17 +24,10 @@ export class Person extends React.Component<IPersonProps> {
               </div>
             );
           };
-
-        let intro= this.props.person.profileText.substr(0, 50)+"...";
-        const  toggle = (props): JSX.Element => {
-          console.log(props);
-          
-          return (
-            <div>
-              TEST
-              
-            </div>
-          );
+        const  toggle = (props) => {
+          this.setState({
+            isCollapsed: !this.state.isCollapsed
+          })
         };
       
         return (   
@@ -55,18 +43,16 @@ export class Person extends React.Component<IPersonProps> {
                   optionalText= {this.props.person.startDate}
               />      
               <div className={ styles.introText }>
-              <Link onClick={toggle}> 
-                <div className={ styles.icon }>
-                  <TooltipHost content="Show Introduction Text">
-                    <Icon iconName={'ContactInfo'}  />
-                  </TooltipHost>
-                </div>
-                <p>{intro}</p>
+              <Link onClick={toggle} style={{ color: 'rgb(102, 102, 102)' }}> 
+                <TooltipHost content={this.state.isCollapsed ? "Show Introduction Text":  "Hide Introduction Text"}>
+                  <Icon iconName={'ContactInfo'} className={ styles.icon } />
+                  <p>{this.props.person.profileText.substr(0, 50)+"..."}</p>
+                </TooltipHost>
               </Link>
               </div>
           </div>
-          <div className={ styles.row }>
-            <p>{this.props.person.profileText}</p>
+          <div >
+          {!this.state.isCollapsed && <div className={ styles.row }>{this.props.person.profileText}</div> } 
           </div>
         </div>
         );
