@@ -31,28 +31,37 @@ export class Person extends React.Component<IPersonProps> {
         };
       
         return (   
-        <div>
-          <div className={ styles.row }>
+        <div className={styles.grid} dir="ltr" >
+          <div className={styles.row}>
+            <Link onClick={toggle} style={{ color: 'rgb(102, 102, 102)' }}> 
               <Persona
-                  className={ styles.persona }
-                  text={this.props.person.name}
-                  size={PersonaSize.size72}
-                  secondaryText= {this.props.person.companyPosition}
-                  onRenderSecondaryText={_onRenderSecondaryText}
-                  imageUrl={this.props.person.imageUrl}
-                  optionalText= {this.props.person.startDate}
+                className= {styles.box1}
+                text={this.props.person.name}
+                size={PersonaSize.size72}
+                secondaryText= {this.props.person.companyPosition}
+                onRenderSecondaryText={_onRenderSecondaryText}
+                imageUrl={this.props.person.imageUrl}
+                optionalText= {this.props.person.startDate}
               />      
-              <div className={ styles.introText }>
-              <Link onClick={toggle} style={{ color: 'rgb(102, 102, 102)' }}> 
+              <div className={styles.box2}>
                 <TooltipHost content={this.state.isCollapsed ? "Show Introduction Text":  "Hide Introduction Text"}>
                   <Icon iconName={'ContactInfo'} className={ styles.icon } />
-                  <p>{this.props.person.profileText.substr(0, 50)+"..."}</p>
+                  <p> {this.props.person.profileText? this.props.person.profileText.substr(0, 50)+"...": ''}</p>
                 </TooltipHost>
-              </Link>
               </div>
+            </Link>
           </div>
+
           <div >
-          {!this.state.isCollapsed && <div className={ styles.row }>{this.props.person.profileText}</div> } 
+            {!this.state.isCollapsed && 
+              <div className={ styles.row }>
+                {this.props.person.profileText}
+                <br/>
+                <Link onClick={toggle} style={{ color: 'rgb(102, 102, 102)' }}> 
+                  <button>Hide Introduction Text</button>
+                </Link>
+              </div>
+            } 
           </div>
         </div>
         );

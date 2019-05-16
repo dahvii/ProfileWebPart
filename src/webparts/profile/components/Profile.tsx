@@ -38,10 +38,9 @@ export default class Profile extends React.Component<IProfileProps, {}> {
   public render(): React.ReactElement<IProfileProps> {
     return ( 
       <div className={ styles.profile }>
-        <div className={ styles.container }>
-          <h1>Newly Hired</h1>
-          <PersonList list= {this.state.profileListItems}></PersonList> 
-         
+        <div className={ styles.container}>
+            <h1>Newly Hired</h1>
+            <PersonList list= {this.state.profileListItems}></PersonList> 
         </div>
       </div>
     );
