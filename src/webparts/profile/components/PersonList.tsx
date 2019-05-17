@@ -1,5 +1,4 @@
 import * as React from 'react';
-import styles from './Profile.module.scss';
 import { IPersonListProps } from './IPersonListProps';
 import Person from './Person';
 
