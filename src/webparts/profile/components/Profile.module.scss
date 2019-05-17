@@ -15,6 +15,7 @@
   }
   .row {
     @include ms-Grid-row;
+    width: 55vw;
     padding: 1vw;
     margin-right: 0;
     margin-left: 0;
@@ -34,9 +35,7 @@
     @include ms-md12;
     @include ms-lg3;
   }
-  .icon{
-    font-size: $ms-font-size-xxl;
-  }
+
 
 //small
 @media screen and (max-width: 479px) {
@@ -50,6 +49,8 @@
 
   .icon{
     float: left;
+    font-size: $ms-font-size-l;
+
   }
  
 }
@@ -78,6 +79,8 @@
   }
   .icon{
     float:right;
+    font-size: $ms-font-size-xxl;
+
   }
 }
 }

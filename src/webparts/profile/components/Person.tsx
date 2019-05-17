@@ -33,8 +33,8 @@ export class Person extends React.Component<IPersonProps> {
         };
         return (   
         <div className={styles.grid}  >
-          <div className={styles.row}>
             <Link onClick={toggle} style={{ color: 'rgb(102, 102, 102)' }}> 
+          <div className={styles.row}>
               <div className= {styles.box1}>
                 <Persona
                   text={this.props.person.name}
@@ -53,7 +53,7 @@ export class Person extends React.Component<IPersonProps> {
                 /> 
                 <div>{this.props.person.name}</div>
                 <div><Icon iconName={'Suitcase'} />{this.props.person.companyPosition}</div>
-                <Moment format="YY-MM-DD" >{this.props.person.startDate}</Moment>
+                <div>Starts at <Moment format="YY-MM-DD" >{this.props.person.startDate}</Moment></div>
               </div>  
                 
               <div className={styles.box2}>
@@ -67,8 +67,8 @@ export class Person extends React.Component<IPersonProps> {
                   <Icon iconName={'ContactInfo'} className={ styles.icon } />
                   {this.state.isCollapsed ? "Show Introduction Text":  "Hide Introduction Text"}            
               </div>
-            </Link>
           </div>
+            </Link>
 
           <div >
             {!this.state.isCollapsed && 
