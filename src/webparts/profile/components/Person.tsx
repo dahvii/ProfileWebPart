@@ -31,10 +31,14 @@ export class Person extends React.Component<IPersonProps> {
             isCollapsed: !this.state.isCollapsed
           })
         };
+
+        
         return (   
+           
         <div className={styles.grid}  >
-            <Link onClick={toggle} style={{ color: 'rgb(102, 102, 102)' }}> 
+            
           <div className={styles.row}>
+          <Link onClick={toggle} style={{ color: 'rgb(102, 102, 102)' }}>
               <div className= {styles.box1}>
                 <Persona
                   text={this.props.person.name}
@@ -67,8 +71,9 @@ export class Person extends React.Component<IPersonProps> {
                   <Icon iconName={'ContactInfo'} className={ styles.icon } />
                   {this.state.isCollapsed ? "Show Introduction Text":  "Hide Introduction Text"}            
               </div>
+              </Link>
           </div>
-            </Link>
+         
 
           <div >
             {!this.state.isCollapsed && 
@@ -82,6 +87,7 @@ export class Person extends React.Component<IPersonProps> {
             } 
           </div>
         </div>
+
         );
     }
 }

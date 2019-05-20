@@ -15,8 +15,8 @@
   }
   .row {
     @include ms-Grid-row;
-    width: 55vw;
-    padding: 1vw;
+    width: 100%;
+    padding: 2%;
     margin-right: 0;
     margin-left: 0;
     box-shadow: 2px 2px 2px 0 $ms-color-themePrimary, 0 2px 5px 0  $ms-color-themePrimary; 
