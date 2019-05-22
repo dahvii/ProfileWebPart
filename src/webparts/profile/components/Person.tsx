@@ -7,6 +7,7 @@ import Moment from 'react-moment';
 import { TooltipHost } from 'office-ui-fabric-react/lib/Tooltip';
 import { Link } from 'office-ui-fabric-react/lib/Link';
 import { DefaultButton } from 'office-ui-fabric-react/lib/Button';
+import Dimensions from 'react-dimensions';
 
 
 export class Person extends React.Component<IPersonProps> {
@@ -32,25 +33,39 @@ export class Person extends React.Component<IPersonProps> {
           })
         };
 
+        /**
+         * <div className="ms-Grid">
+            <div>
+            </div>
+            <div className="ms-Grid-row">
+               <div className="ms-Grid-col ms-sm6 ms-md6 ms-lg2" style={{ backgroundColor: 'rgb(255, 160, 0)' }}>A</div>
+              <div className="ms-Grid-col ms-sm6 ms-md4 ms-lg2" style={{ backgroundColor: 'rgb(255, 0, 0)' }}>B</div>
+              <div className="ms-Grid-col  ms-hiddenSm ms-md2 ms-lg8"style={{ backgroundColor: 'rgb(215, 143, 233)' }}>C</div>
+            </div>
+          </div>
+         */
+
         
         return (   
-           
-        <div className={styles.grid}  >
-            
+          <div className={styles.grid}  >          
           <div className={styles.row}>
           <Link onClick={toggle} style={{ color: 'rgb(102, 102, 102)' }}>
+
+
+          {this.props.containerWidth > 420 && 
               <div className= {styles.box1}>
-                <Persona
-                  text={this.props.person.name}
-                  size={PersonaSize.size72}
-                  secondaryText= {this.props.person.companyPosition}
-                  onRenderSecondaryText={_onRenderSecondaryText}
-                  imageUrl={this.props.person.imageUrl}
-                  optionalText= {this.props.person.startDate}
-                /> 
-              </div>
-              
-              <div className= {styles.smallBox1}>
+              <Persona
+                text={this.props.person.name}
+                size={PersonaSize.size72}
+                secondaryText= {this.props.person.companyPosition}
+                onRenderSecondaryText={_onRenderSecondaryText}
+                imageUrl={this.props.person.imageUrl}
+                optionalText= {this.props.person.startDate}
+              /> 
+            </div>
+          } 
+
+          {this.props.containerWidth < 420 && <div className= {styles.smallBox1}>
                 <Persona
                   size={PersonaSize.large}
                   imageUrl={this.props.person.imageUrl}
@@ -59,18 +74,23 @@ export class Person extends React.Component<IPersonProps> {
                 <div><Icon iconName={'Suitcase'} />{this.props.person.companyPosition}</div>
                 <div>Starts at <Moment format="YY-MM-DD" >{this.props.person.startDate}</Moment></div>
               </div>  
-                
-              <div className={styles.box2}>
+          }
+              
+          {this.props.containerWidth > 420 &&
+            <div className={styles.box2}>
                 <TooltipHost content={this.state.isCollapsed ? "Show Introduction Text":  "Hide Introduction Text"}>
                   <Icon iconName={'ContactInfo'} className={ styles.icon } />
                   <p>{this.props.person.profileText? this.props.person.profileText.substr(0, 50)+"...": ''}</p>
                 </TooltipHost>
               </div>
+          }  
 
-              <div className={styles.smallBox2}>
-                  <Icon iconName={'ContactInfo'} className={ styles.icon } />
-                  {this.state.isCollapsed ? "Show Introduction Text":  "Hide Introduction Text"}            
-              </div>
+          {this.props.containerWidth < 420 && 
+            <div className={styles.smallBox2}>
+            <Icon iconName={'ContactInfo'} className={ styles.icon } />
+            {this.state.isCollapsed ? "Show Introduction Text":  "Hide Introduction Text"}            
+            </div>
+          }
               </Link>
           </div>
          
@@ -87,7 +107,6 @@ export class Person extends React.Component<IPersonProps> {
             } 
           </div>
         </div>
-
         );
     }
 }

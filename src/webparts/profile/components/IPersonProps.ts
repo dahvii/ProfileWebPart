@@ -1,6 +1,7 @@
 
   export interface IPersonProps {
-    person: IPerson
+    person: IPerson,
+    containerWidth?: Number
 
   }
 
