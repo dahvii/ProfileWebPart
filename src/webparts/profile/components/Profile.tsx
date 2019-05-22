@@ -3,6 +3,7 @@ import styles from './Profile.module.scss';
 import { IProfileProps } from './IProfileProps';
 import pnp from "sp-pnp-js";
 import PersonList from './PersonList';
+import { SPComponentLoader } from '@microsoft/sp-loader';
 
 
 export default class Profile extends React.Component<IProfileProps, {}> {
@@ -36,6 +37,7 @@ export default class Profile extends React.Component<IProfileProps, {}> {
 
 
   public render(): React.ReactElement<IProfileProps> {
+    SPComponentLoader.loadCss('//unpkg.com/office-ui-fabric-react/dist/css/fabric.min.css');
     return ( 
       <div className={ styles.profile }>
         <div className={ styles.container}>
