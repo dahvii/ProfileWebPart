@@ -11,7 +11,15 @@ export default class Profile extends React.Component<IProfileProps, {}> {
     profileListItems: []
   }
   
-  componentDidMount(){
+  constructor(props){
+    super(props);
+
+    pnp.setup({
+      sp: {
+        baseUrl: location.protocol + "//" + location.hostname + "/sites/LIADevSite"
+      }
+    });
+
     pnp.sp.web.lists.getByTitle("ProfileList").items.get().then((items: any[]) => {
       let list = [];
 
@@ -35,13 +43,12 @@ export default class Profile extends React.Component<IProfileProps, {}> {
     
   }
 
-
   public render(): React.ReactElement<IProfileProps> {
     SPComponentLoader.loadCss('//unpkg.com/office-ui-fabric-react/dist/css/fabric.min.css');
     return ( 
       <div className={ styles.profile }>
         <div className={ styles.container}>
-            <h1>Newly Hired</h1>
+            <h1>{this.props.description}</h1>
             <PersonList list= {this.state.profileListItems}></PersonList> 
         </div>
       </div>

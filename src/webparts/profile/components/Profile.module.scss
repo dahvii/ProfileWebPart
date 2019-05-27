@@ -26,61 +26,34 @@
 
   .box1{
     @include ms-Grid-col;
-    @include ms-md12;
     @include ms-lg9;
   }
 
   .box2{
     @include ms-Grid-col;
-    @include ms-md12;
     @include ms-lg3;
-  }
-
-
-//small
-@media screen and (max-width: 479px) {
-  .box1 {
-    display: none;
-
-  }
-  .box2{
-    display: none;
-  }
-
-  .icon{
-    float: left;
-    font-size: $ms-font-size-l;
-
-  }
- 
-}
-
-//medium
-@media screen and (min-width: 480px) and (max-width: 639px) {
-  .smallBox1{
-    display: none;
-  }
-  .smallBox2{
-    display: none;
-  }
-  .icon{
-    background-color: yellow; 
     float:right;
-  }
-}
 
-//large and up
-@media screen and (min-width: 640px) {
-  .smallBox1{
-    display: none;
+    .icon{
+      float:right;
+      font-size: $ms-font-size-xxl;
+    }
   }
-  .smallBox2{
-    display: none;
-  }
-  .icon{
-    float:right;
-    font-size: $ms-font-size-xxl;
 
+  .smallBox{
+    .icon{
+      margin: 0 5px 0 0;
+      float:left;
+      font-size: $ms-font-size-xl;
+    }
+    .companyPosition{
+      vertical-align: baseline;
+    }
+    .name{
+      color: rgb(51, 51, 51);
+      font-weight: 400;
+      font-size: $ms-font-size-xl;
+    }
   }
-}
+
 }

@@ -6,14 +6,6 @@ import Dimensions from 'react-dimensions';
 
 
 export class PersonList extends React.Component<IPersonListProps> {
-    /**
-     * <div>
-            {this.props.list.map(item => {
-                return <Person person = {item}></Person>
-            })}
-        </div>
-     */
-
     public render() {  
         return (   
         <div>
