@@ -10,6 +10,7 @@ import {
 import * as strings from 'ProfileWebPartStrings';
 import Profile from './components/Profile';
 import { IProfileProps } from './components/IProfileProps';
+import { Web } from "sp-pnp-js";
 
 
 export interface IProfileWebPartProps {
@@ -17,8 +18,28 @@ export interface IProfileWebPartProps {
 }
 
 export default class ProfileWebPart extends BaseClientSideWebPart<IProfileWebPartProps> {
+ 
+  private CreateList(): void {
+    let spWeb = new Web(this.context.pageContext.web.absoluteUrl);
+    let spListTitle = "SPFxPnPList"; 
+    let spListDescription = "SPFxPnP List"; 
+    let spListTemplateId = 100; 
+    let spEnableCT = false; 
+
+    spWeb.lists.add(spListTitle, spListDescription,spListTemplateId, spEnableCT).then(function(splist){
+             
+      console.log("lista skapad");
+    }).catch(function (error){
+      console.log(error);
+      
+    });
+  }
 
   public render(): void {
+    //try fetch list
+    //if not existing, create list
+    this.CreateList();
+
     const element: React.ReactElement<IProfileProps > = React.createElement(
       Profile,
       {
