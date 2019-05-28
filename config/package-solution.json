@@ -3,9 +3,23 @@
   "solution": {
     "name": "profile-web-part-client-side-solution",
     "id": "fc663917-f5a0-49b9-baf5-e9c59a7cd558",
-    "version": "1.0.0.0",
+    "version": "1.0.0.2",
     "includeClientSideAssets": true,
-    "isDomainIsolated": false
+    "isDomainIsolated": false,
+    "features": [{
+      "title": "profile-web-part-client-side-solution",
+      "description": "profile-web-part-client-side-solution",
+      "id": "b76fc2b0-3d7e-4060-91ed-637c052aaf26",
+      "version": "1.0.0.2",
+      "assets": {
+        "elementManifests": [
+          "elements.xml"
+        ],
+        "elementFiles":[
+          "schema.xml"
+        ]
+      }
+    }]
   },
   "paths": {
     "zippedPackage": "solution/profile-web-part.sppkg"

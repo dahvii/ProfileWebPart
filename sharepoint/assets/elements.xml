@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Elements xmlns="http://schemas.microsoft.com/sharepoint/">
+
+    <Field ID="{d44db4df-02cc-4052-9c38-340a98a39dd6}"
+            Name="ProfileText"
+            DisplayName="Profile Text"
+            Type="Note"
+            MaxLength="2000"
+            Required="FALSE"
+            Group="SPFx Columns"
+            />
+
+    <Field ID="{77558b40-366b-434d-a62e-bcbb8b885d30}"
+            Name="Image"
+            DisplayName="Image"
+            Type="URL"
+            Required="FALSE"
+            Group="SPFx Columns"
+            />
+
+    <Field ID="{4b83ad51-c9d7-4f6c-93ec-0f5d4de89ab0}"
+            Name="CompanyPosition"
+            DisplayName="Company Position"
+            Type="Text"
+            MaxLength="50"
+            Required="TRUE"
+            Group="SPFx Columns"
+            />
+
+    <Field ID="{b1835532-9d6e-4a8e-b86e-028401a8d613}"
+            Name="StartDate"
+            DisplayName="Start Date"
+            Type="DateTime"
+            Format="DateOnly"
+            Required="TRUE"
+            Group="SPFx Columns"
+            />
+
+    <ContentType ID="0x010042D0C1C200A14B6887742B6344675C8B" 
+            Name="Cost Center" 
+            Group="SPFx Content Types" 
+            Description="Sample content types from web part solution">
+        <FieldRefs>
+            <FieldRef ID="{d44db4df-02cc-4052-9c38-340a98a39dd6}" /> 
+            <FieldRef ID="{77558b40-366b-434d-a62e-bcbb8b885d30}" />
+            <FieldRef ID="{4b83ad51-c9d7-4f6c-93ec-0f5d4de89ab0}" />
+            <FieldRef ID="{b1835532-9d6e-4a8e-b86e-028401a8d613}" />
+        </FieldRefs>
+    </ContentType> 
+
+    <ListInstance 
+            CustomSchema="schema.xml"
+            FeatureId="00bfea71-de22-43b2-a848-c05709900100"
+            Title="Newly Hired List" 
+            Description="A list for the Newly Hired web part"
+            TemplateType="100"
+            Url="/sites/LIADevsite/Lists">
+    </ListInstance>
+
+</Elements>
