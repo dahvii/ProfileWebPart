@@ -1,17 +1,17 @@
 
   export interface IPersonProps {
-    person: IPerson,
+    person: IPerson;
     containerWidth?: Number
 
   }
 
 
   export interface IPerson {
-    id: number,
-    name: string,
-    startDate: string, 
-    imageUrl: string,
-    companyPosition: string,
-    profileText: string,
+    id: number;
+    name: string;
+    startDate: string; 
+    imageUrl: string;
+    companyPosition: string;
+    profileText: string;
 
   }

@@ -1,4 +1,5 @@
 @import '~@microsoft/sp-office-ui-fabric-core/dist/sass/SPFabricCore.scss';
+$ms-primaryText:                "[theme:primaryText, default:#0078d7]";
 
 
 .profile {
@@ -7,6 +8,7 @@
     max-width: 700px;
     margin: 0px auto;
     padding: 0.5vw ;
+    color: $ms-primaryText;
   }
 
   .grid{
@@ -50,7 +52,9 @@
       vertical-align: baseline;
     }
     .name{
-      color: rgb(51, 51, 51);
+      //color: rgb(51, 51, 51);
+      color: $ms-primaryText;
+
       font-weight: 400;
       font-size: $ms-font-size-xl;
     }
