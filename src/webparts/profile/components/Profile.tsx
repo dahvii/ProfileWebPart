@@ -10,7 +10,8 @@ import { autobind } from 'office-ui-fabric-react/lib/Utilities';
 
 export default class Profile extends React.Component<IProfileProps, {}> {
   state = {
-    createdNewList: false
+    createdNewList: false,
+    listUrl: null
   }
   constructor(props){
     super(props)    
@@ -23,8 +24,8 @@ export default class Profile extends React.Component<IProfileProps, {}> {
   }
 
 
-  public render(): React.ReactElement<IProfileProps> {  
-    SPComponentLoader.loadCss('//unpkg.com/office-ui-fabric-react/dist/css/fabric.min.css');
+  public render(): React.ReactElement<IProfileProps> {      
+    SPComponentLoader.loadCss('//unpkg.com/office-ui-fabric-react/dist/css/fabric.min.css');    
     return ( 
       <div className={ styles.profile }>
         <div className={ styles.container}>
@@ -46,6 +47,11 @@ export default class Profile extends React.Component<IProfileProps, {}> {
               <div>
                 <h2> The list is created!</h2> 
                 <p>Now head over to "Newly Hired List" and fill in your new employee and get this app up and running!</p>
+                <DefaultButton
+                  href={this.state.listUrl}
+                  text="Take me to the list"
+                  
+                />
               </div>
             }
         </div>
@@ -61,80 +67,31 @@ export default class Profile extends React.Component<IProfileProps, {}> {
     let listTemplateId = 100; 
     let enableContentTypes = true; 
 
-  
-    //create fields 
-    web.fields.addMultilineText("Profile Text").then(f => {
-      console.log(f);
-
-  });
-    web.fields.addUrl("Image").then(f => {
-
-      console.log(f);
-  });
-    web.fields.addText("Company Position", 25).then(f => {
-
-      console.log(f);
-  });
-    web.fields.addDateTime("Start Date").then(f => {
-
-      console.log(f);
-  })
-
-
-    //format: add(title: string, description?: string, template?: number, enableContentTypes?: boolean, additionalSettings?: TypedHash<string | number | boolean>): Promise<ListAddResult>;
     var _self=this;
-    web.lists.add(listTitle, listDescription,listTemplateId, enableContentTypes).then(function(splist){
-     /* web.lists.getByTitle(listTitle).fields.addMultilineText("Profile Text").then(f => {
-
-        console.log(f);
-    });
+    web.lists.add(listTitle, listDescription,listTemplateId, enableContentTypes).then(function(splist){      
+     web.lists.getByTitle(listTitle).fields.addMultilineText("ProfileText").then(f => {
+      splist.list.defaultView.fields.add("ProfileText");
       web.lists.getByTitle(listTitle).fields.addUrl("Image").then(f => {
-  
-        console.log(f);
+        splist.list.defaultView.fields.add("Image");
+        web.lists.getByTitle(listTitle).fields.addText("CompanyPosition", 25, {Required: true}).then(f => {
+          splist.list.defaultView.fields.add("CompanyPosition");
+          web.lists.getByTitle(listTitle).fields.addDateTime("StartDate", undefined, undefined, undefined, {Required: true}).then(f => {
+            splist.list.defaultView.fields.add("StartDate");
+          });
+        });
+      });   
+    }); 
+    
+    web.lists.getByTitle(listTitle).expand('RootFolder, ParentWeb').select('RootFolder/ServerRelativeUrl').get().then(function(result) {
+      _self.setState({listUrl: location.protocol + "//" + location.hostname  + result.RootFolder.ServerRelativeUrl})
     });
-      web.lists.getByTitle(listTitle).fields.addText("Company Position", 25).then(f => {
-  
-        console.log(f);
-    });
-      web.lists.getByTitle(listTitle).fields.addDateTime("Start Date").then(f => {
-  
-        console.log(f);
-    })*/
+   
       _self.setState({createdNewList: true})
+
     }).catch(function (error){
       console.log(error);
       
     });
-
-   // this.createFields(listTitle);
-    /*if(this.state.createdNewList){
-      this.createFields("Newly Hired List");
-    }
-*/
-  }
-
-  @autobind
-  private createFields(listTitle): void {
-    console.log("i createfields");
-    /*
-    let web= pnp.sp.web;
-
-    web.lists.getByTitle(listTitle).fields.addMultilineText("Profile Text").then(f => {
-
-      console.log(f);
-  });
-    web.lists.getByTitle(listTitle).fields.addUrl("Image").then(f => {
-
-      console.log(f);
-  });
-    web.lists.getByTitle(listTitle).fields.addText("Company Position", 25).then(f => {
-
-      console.log(f);
-  });
-    web.lists.getByTitle(listTitle).fields.addDateTime("Start Date").then(f => {
-
-      console.log(f);
-  });*/
   }
 
 }

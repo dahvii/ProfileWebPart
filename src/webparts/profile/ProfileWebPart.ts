@@ -10,7 +10,6 @@ import {
 import * as strings from 'ProfileWebPartStrings';
 import Profile from './components/Profile';
 import { IProfileProps } from './components/IProfileProps';
-import { Web, PnPClientStorage } from "sp-pnp-js";
 import pnp from "sp-pnp-js";
 
 export interface IProfileWebPartProps {
@@ -20,9 +19,6 @@ export interface IProfileWebPartProps {
 export default class ProfileWebPart extends BaseClientSideWebPart<IProfileWebPartProps> {  
   
   componentDidMount(){
-    console.log("root  ", location.protocol + "//" + location.hostname + this.context.pageContext.site.serverRelativeUrl);
-
-
     pnp.setup({
       sp: {
         baseUrl: location.protocol + "//" + location.hostname + this.context.pageContext.site.serverRelativeUrl
