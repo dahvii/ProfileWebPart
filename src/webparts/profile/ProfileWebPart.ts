@@ -1,77 +1,39 @@
 import * as React from 'react';
 import * as ReactDom from 'react-dom';
 import { Version } from '@microsoft/sp-core-library';
-import { BaseClientSideWebPart } from '@microsoft/sp-webpart-base';
+import { BaseClientSideWebPart, PropertyPaneLabel, PropertyPaneDropdown } from '@microsoft/sp-webpart-base';
 import {
   IPropertyPaneConfiguration,
   PropertyPaneTextField
 } from '@microsoft/sp-property-pane';
-
-import * as strings from 'ProfileWebPartStrings';
 import Profile from './components/Profile';
 import { IProfileProps } from './components/IProfileProps';
-import pnp from "sp-pnp-js";
+import ListHelper from './ListHelper'
 
 export interface IProfileWebPartProps {
   description: string;
+  listChoice: string;
 }
 
 export default class ProfileWebPart extends BaseClientSideWebPart<IProfileWebPartProps> {  
-  
-  componentDidMount(){
-    pnp.setup({
-      sp: {
-        baseUrl: location.protocol + "//" + location.hostname + this.context.pageContext.site.serverRelativeUrl
-      }
-    });
-  }
+  listOptions : any[];
+  listInfo= "If you want to connect a new list for the app the list needs 3 required fields who has the static names: 'CompanyPosition', 'StartDate', 'Title'";
 
-  private getExistingList() {
-    return new Promise((resolve: (success?: any) => void, reject: (error: any) => void): void => {
-      pnp.sp.web.lists.getByTitle("Newly Hired List").items.get().then((items: any[]) => {
-        let list = [];
-  
-        items.forEach(item => {
-          let person = {
-            id: item.Id,
-            name: item.Title,
-            startDate: item.StartDate, 
-            imageUrl: (item.Image ? item.Image.Url : null ),
-            companyPosition: item.CompanyPosition,
-            profileText: item.ProfileText,
-          }
-          list.push(person)
-        });
-
-        resolve(list);
-        }, (errorMessage)=> {
-          reject(errorMessage)
-      });
-    })
+  constructor(props) {
+    super();
+    this.listOptions= ListHelper.getListNames();
   }
 
   public render() {
-    //try fetch list
-    this.getExistingList().then(existingList => {
-      console.log("listan hämtad");
-      this.createReactElement(existingList);
-    })
-    .catch( error => {
-      console.log("listan finns ej");
-      this.createReactElement();
-    })
-  }
-
-  private createReactElement(listItems? :[any]){
     const element: React.ReactElement<IProfileProps > = React.createElement(
       Profile,
       {
         description: this.properties.description,
-        list: listItems,
-        baseUrl: location.protocol + "//" + location.hostname + this.context.pageContext.site.serverRelativeUrl
+        listChoice: this.properties.listChoice,
       }
     );
     ReactDom.render(element, this.domElement);
+    
   }
 
   protected onDispose(): void {
@@ -82,20 +44,25 @@ export default class ProfileWebPart extends BaseClientSideWebPart<IProfileWebPar
     return Version.parse('1.0');
   }
 
-  protected getPropertyPaneConfiguration(): IPropertyPaneConfiguration {
+  protected getPropertyPaneConfiguration(): IPropertyPaneConfiguration {        
     return {
       pages: [
         {
-          header: {
-            description: strings.PropertyPaneDescription
-          },
           groups: [
             {
-              groupName: strings.BasicGroupName,
+              groupName: "Settings for the app",
               groupFields: [
+                PropertyPaneDropdown('listChoice', {
+                  label: "Choose a list to get the information from",
+                  options: this.listOptions
+                }),
                 PropertyPaneTextField('description', {
-                  label: strings.DescriptionFieldLabel
+                  label: "Header for the app"
+                }),
+                PropertyPaneLabel('info', {
+                  text: this.listInfo
                 })
+
               ]
             }
           ]

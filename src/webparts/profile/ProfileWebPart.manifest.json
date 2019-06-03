@@ -16,7 +16,7 @@
     "group": { "default": "Other" },
     "title": { "default": "Newly Hired" },
     "description": { "default": "List to display new employee" },
-    "officeFabricIconFontName": "Page",
+    "officeFabricIconFontName": "WorkforceManagement",
     "properties": {
       "description": "Newly Hired"
     }
