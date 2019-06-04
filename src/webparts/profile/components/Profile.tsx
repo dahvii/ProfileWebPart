@@ -27,7 +27,7 @@ export default class Profile extends React.Component<IProfileProps, {}> {
   shouldComponentUpdate(nextProps): boolean {
     if (this.props.listChoice != nextProps.listChoice) {
       ListHelper.getExistingList(nextProps.listChoice).then(existingList => {
-        this.setState({profileList: existingList})
+        this.setState({ profileList: existingList })
       }, error => {
         console.log(error);
       })
@@ -47,7 +47,7 @@ export default class Profile extends React.Component<IProfileProps, {}> {
           {!this.state.profileList && !this.state.createdNewList &&
             <div>
               <h2>There is no list connected to this app </h2>
-              <p>Please fill in the correct name of an existing list in the app settings or click below for creating a new list</p>
+              <p>click below for creating a new list or choose a list in app settings</p>
               <DefaultButton
                 text="Create a list"
                 onClick={this.createList}

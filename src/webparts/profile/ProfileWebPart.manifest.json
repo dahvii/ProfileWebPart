@@ -1,6 +1,6 @@
 {
   "$schema": "https://developer.microsoft.com/json-schemas/spfx/client-side-web-part-manifest.schema.json",
-  "id": "3898dfb4-5207-47eb-b276-6886473c1cd8",
+  "id": "0d862c6d-5875-48d5-a020-0d9d14e5491b",
   "alias": "ProfileWebPart",
   "componentType": "WebPart",
 
@@ -12,7 +12,7 @@
   "supportedHosts": ["SharePointWebPart"],
 
   "preconfiguredEntries": [{
-    "groupId": "5c03119e-3074-46fd-976b-c60198311f70", 
+    "groupId": "c8dc45c3-5155-4024-9a52-484e364ce52c", 
     "group": { "default": "Other" },
     "title": { "default": "Newly Hired" },
     "description": { "default": "List to display new employee" },

@@ -1,13 +1,12 @@
 {
   "$schema": "https://developer.microsoft.com/json-schemas/spfx-build/package-solution.schema.json",
   "solution": {
-    "name": "profile-web-part-client-side-solution",
-    "id": "fc663917-f5a0-49b9-baf5-e9c59a7cd558",
-    "version": "1.0.0.0",
-    "includeClientSideAssets": true,
-    "isDomainIsolated": false
+    "name": "Newly Hired",
+    "id": "f8bff646-e4aa-426d-964e-d07c8ff727b0",
+    "version": "2.0.0.0",
+    "skipFeatureDeployment": true 
   },
   "paths": {
-    "zippedPackage": "solution/profile-web-part.sppkg"
+    "zippedPackage": "solution/newly-hired.sppkg"
   }
 }

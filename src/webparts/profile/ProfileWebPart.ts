@@ -15,17 +15,17 @@ export interface IProfileWebPartProps {
   listChoice: string;
 }
 
-export default class ProfileWebPart extends BaseClientSideWebPart<IProfileWebPartProps> {  
-  listOptions : any[];
-  listInfo= "If you want to connect a new list for the app the list needs 3 required fields who has the static names: 'CompanyPosition', 'StartDate', 'Title'";
+export default class ProfileWebPart extends BaseClientSideWebPart<IProfileWebPartProps> {
+  listOptions: any[];
+  listInfo = "If you want to manually create a new list it needs 3 required fields which has the internal names: 'CompanyPosition', 'StartDate', 'Title'";
 
   constructor(props) {
     super();
-    this.listOptions= ListHelper.getListNames();
+    this.listOptions = ListHelper.getListNames();
   }
 
   public render() {
-    const element: React.ReactElement<IProfileProps > = React.createElement(
+    const element: React.ReactElement<IProfileProps> = React.createElement(
       Profile,
       {
         description: this.properties.description,
@@ -33,7 +33,7 @@ export default class ProfileWebPart extends BaseClientSideWebPart<IProfileWebPar
       }
     );
     ReactDom.render(element, this.domElement);
-    
+
   }
 
   protected onDispose(): void {
@@ -44,7 +44,7 @@ export default class ProfileWebPart extends BaseClientSideWebPart<IProfileWebPar
     return Version.parse('1.0');
   }
 
-  protected getPropertyPaneConfiguration(): IPropertyPaneConfiguration {        
+  protected getPropertyPaneConfiguration(): IPropertyPaneConfiguration {
     return {
       pages: [
         {
@@ -52,16 +52,16 @@ export default class ProfileWebPart extends BaseClientSideWebPart<IProfileWebPar
             {
               groupName: "Settings for the app",
               groupFields: [
+                PropertyPaneTextField('description', {
+                  label: "Header for the app"
+                }),
                 PropertyPaneDropdown('listChoice', {
                   label: "Choose a list to get the information from",
                   options: this.listOptions
                 }),
-                PropertyPaneTextField('description', {
-                  label: "Header for the app"
-                }),
                 PropertyPaneLabel('info', {
                   text: this.listInfo
-                })
+                }),
 
               ]
             }
