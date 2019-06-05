@@ -12,7 +12,7 @@
   "supportedHosts": ["SharePointWebPart"],
 
   "preconfiguredEntries": [{
-    "groupId": "c8dc45c3-5155-4024-9a52-484e364ce52c", 
+    "groupId":  "5c03119e-3074-46fd-976b-c60198311f70", 
     "group": { "default": "Other" },
     "title": { "default": "Newly Hired" },
     "description": { "default": "List to display new employee" },

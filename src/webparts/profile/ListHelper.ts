@@ -61,7 +61,7 @@ export default class ListHelper {
             }, (errorMessage) => {
                 reject(errorMessage);
             });
-        })
+        });
     }
 
     public static createList() {

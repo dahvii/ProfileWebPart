@@ -6,7 +6,7 @@ import { SPComponentLoader } from '@microsoft/sp-loader';
 import { DefaultButton } from 'office-ui-fabric-react/lib/Button';
 import { autobind } from 'office-ui-fabric-react/lib/Utilities';
 import ListHelper from '../ListHelper';
-
+import pnp from 'sp-pnp-js';
 
 export default class Profile extends React.Component<IProfileProps, {}> {
   state = {
@@ -17,6 +17,12 @@ export default class Profile extends React.Component<IProfileProps, {}> {
 
   constructor(props) {
     super(props);
+    pnp.setup({
+      sp: {
+        baseUrl: this.props.baseUrl
+      }
+    });
+    
     ListHelper.getExistingList(this.props.listChoice).then(existingList => {
       this.setState({ profileList: existingList })
     }, error => {

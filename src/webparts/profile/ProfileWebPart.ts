@@ -30,6 +30,7 @@ export default class ProfileWebPart extends BaseClientSideWebPart<IProfileWebPar
       {
         description: this.properties.description,
         listChoice: this.properties.listChoice,
+        baseUrl: location.protocol + "//" + location.hostname + this.context.pageContext.site.serverRelativeUrl
       }
     );
     ReactDom.render(element, this.domElement);
